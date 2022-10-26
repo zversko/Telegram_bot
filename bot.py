@@ -20,7 +20,7 @@ def welcome(message):
  
     markup.add(item1, item2)
  
-    bot.send_message(message.chat.id, "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, бот калькулятор.".format(message.from_user, bot.get_me()),
+    bot.send_message(message.chat.id, "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, бот.".format(message.from_user, bot.get_me()),
         parse_mode='html', reply_markup=markup)
  
 @bot.message_handler(content_types=['text'])
