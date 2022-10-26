@@ -34,7 +34,7 @@ def menu_homework(message):
         bot.send_message(message.chat.id, 'Укажите данные для поиска (например, "иван егор")')
         bot.register_next_step_handler(message, directory)
     else:
-        bot.send_message(message.chat.id, 'Я не знаю что ответить 😢')
+        bot.send_message(message.chat.id, 'Такого выбора нет в моем меню')
 
 def calc(message):
     # if message.chat.type == 'group':
