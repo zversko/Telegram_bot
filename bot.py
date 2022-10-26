@@ -10,6 +10,9 @@ bot = telebot.TeleBot(config.TOKEN)
  
 @bot.message_handler(commands=['start'])
 def welcome(message):
+    '''
+    Приветствие с иконкой и с информацией о функциях
+    '''
     sti = open('picture/wellcome.webp', 'rb')
     bot.send_sticker(message.chat.id, sti)
  
@@ -25,6 +28,9 @@ def welcome(message):
  
 @bot.message_handler(content_types=['text'])
 def menu_homework(message):
+    '''
+    Выбор из меню
+    '''
     # if message.chat.type == 'group':
     if message.text == 'Калькулятор':
         bot.send_message(message.chat.id, 'Вводить в таком формате 4 + (-1)^0.5 - 1 + 8 * (-1)^0.5 - 4 / (-1)^0.5')
@@ -37,6 +43,9 @@ def menu_homework(message):
         bot.send_message(message.chat.id, 'Такого выбора нет в моем меню')
 
 def calc(message):
+    '''
+    Вызов функции калькулятора, с проверкой на недопустимые символы
+    '''
     # if message.chat.type == 'group':
     if re.match(r'''[a-z|A-Z|\+|\/|\*|\^]+''', message.text):
         bot.send_message(message.chat.id, 'Недопустимые символы ')
@@ -45,6 +54,9 @@ def calc(message):
         # send_message(message.chat.id, calculate.calculator(message.text))
 
 def directory(message):
+    '''
+    Вызов функции поисковика по справочнику
+    '''
     bot.send_message(message.chat.id, str(class_directory.m_search.contact_finder(message.text)))
  
 # RUN
