@@ -25,11 +25,16 @@ def board(cell):
 
     return xorz_board
 
-def check_winner(cell):
+def check_winner_or_stalemate(cell):
     winner_position = ((0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6))
     for i in winner_position:
         if (cell[i[0]] == cell[i[1]] == cell[i[2]] == 'X') or (cell[i[0]] == cell[i[1]] == cell[i[2]] == 'O'):
             return 1
+    count = 1
+    for i in cell:
+        if cell[i] != ' ':
+            count += 1
+    return count
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
@@ -77,8 +82,10 @@ def callback_func(query):
 
         cell[data] = xorz_cell
 
-        if check_winner(cell) == 1:
+        if check_winner_or_stalemate(cell) == 1:
             bot.edit_message_text(chat_id=query.message.chat.id, message_id=query.message.message_id, text=f'Выиграли {xorz_cell}-ки')
+        elif check_winner_or_stalemate(cell) == 10:
+            bot.edit_message_text(chat_id=query.message.chat.id, message_id=query.message.message_id, text='Ничья')
         else:
             bot.edit_message_text(chat_id=query.message.chat.id, message_id=query.message.message_id, text=f'Выберите поле для установки {xorz}', reply_markup=board(cell))
     else:
